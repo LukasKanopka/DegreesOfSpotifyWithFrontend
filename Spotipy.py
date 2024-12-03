@@ -248,7 +248,7 @@ def depth_first(starting_url, ending_url):
         visited.add(current_url)
         path.append(current_url)
 
-        # if current audience is target audience, return path.
+        # if current audience is target audience, return path
         if current_url == ending_url:
             return [len(path) - 1] + path
         # get related artists
