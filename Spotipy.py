@@ -212,6 +212,10 @@ def breadth_first(starting_url, ending_url):
 
     return None
 
+
+"""
+CONSOLE TESTING
+"""
 def main():
     """
     Main function to run the BFS program.
