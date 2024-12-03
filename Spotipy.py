@@ -183,14 +183,25 @@ def find_related_artists(artist_url):
     return list(featured_urls)
 
 def breadth_first(starting_url, ending_url):
+    """
+    Uses BFS to find the shortest path between two artists.
+
+    Args:
+        starting_url (str): Spotify URL of the starting artist.
+        ending_url (str): Spotify URL of the ending artist.
+
+    Returns:
+        list: Path of artist URLs from start to end, or None if no connection.
+    """
     url_counter = 0
     queue = [(starting_url, [starting_url])]
     visited = set()
 
+
     while queue:
         current_url, path = queue.pop(0)
 
-        url_counter+=1
+        url_counter += 1
 
         print(current_url)
 
@@ -209,16 +220,55 @@ def breadth_first(starting_url, ending_url):
                 if neighbor not in visited:
                     queue.append((neighbor, path + [neighbor]))
 
-
     return None
 
+def depth_first(starting_url, ending_url):
+    """
+    Uses DFS to find any path between two artists
 
-"""
-CONSOLE TESTING
-"""
+    Args:
+        starting_url (str): Spotify URL of the starting artist.
+        ending_url (str): Spotify URL of the ending artist.
+
+    Returns:
+        list: Path of artist URLs from start to end, or None if no connection.
+    """
+    def dfs_recursive(current_url, visited, path):
+        """
+        Inner recursive function for DFS
+
+        Args:
+            current_url (str): Spotify URL of the current artist being visited.
+            visited (set): Set of visited artists URLs.
+            path (list): Path of artist URLs currently being explored.
+
+        Returns:
+            list: Path of artist URLs from start to end, or None if no connection.
+        """
+        visited.add(current_url)
+        path.append(current_url)
+
+        # if current audience is target audience, return path
+        if current_url == ending_url:
+            return [len(path) - 1] + path
+        # get related artists
+        neighbors = find_related_artists(current_url)
+        for neighbor in neighbors:
+            if neighbor not in visited:
+                result = dfs_recursive(neighbor, visited, path + [neighbor])
+                if result:
+                    return result
+        # if no path found from current artist
+        path.pop()
+        return None
+    # initialize visited set and path list
+    visited = set()
+    path = []
+    return dfs_recursive(starting_url, visited, path)
+
 def main():
     """
-    Main function to run the BFS program.
+    Main function to run the BFS and DFS program.
     """
     artist_name_1 = input("Enter the first artist name: ").strip()
     artist_name_2 = input("Enter the second artist name: ").strip()
@@ -230,22 +280,27 @@ def main():
         print("Could not find one or both artists. Exiting.")
         return
 
+    print("\nChoose a search method:")
+    print("1. Breadth-First Search (BFS)")
+    print("2. Depth-First Search (DFS)")
+    choice = input("Enter your choice (1 or 2): ").strip()
 
-
-    print(f"Finding shortest path between {artist_name_1} and {artist_name_2}...")
-    result = breadth_first(start_url, end_url)
+    if choice == "1":
+        print(f"\nFinding shortest path between {artist_name_1} and {artist_name_2} using BFS...")
+        result = breadth_first(start_url, end_url)
+    if choice == "2":
+        print(f"\nFinding a path between {artist_name_1} and {artist_name_2} using DFS...")
+        result = depth_first(start_url, end_url)
+    else:
+        print("Not a valid choice. Exiting")
+        return
 
     if result:
         degrees = result[0]
-        number_artists_searched = result[1]
-        path = result[2:]
-
-        # Convert URLs to artist names
-        path_names = [get_artist_name(url) for url in path]
-
-        print(f"\nSearched {number_artists_searched} Artists")
-
-        print(f"Degrees of separation: {degrees}")
+        path = result[1:]
+        #Converts URLs to artist names for better readability
+        path_names = [get_artist_url(url) for url in path]
+        print(f"\nDegrees of separation: {degrees}")
         print(" -> ".join(path_names))
     else:
         print("No connection found between the artists.")
