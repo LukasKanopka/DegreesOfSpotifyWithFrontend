@@ -221,6 +221,7 @@ def breadth_first(starting_url, ending_url):
                     queue.append((neighbor, path + [neighbor]))
 
     return None
+
 def depth_first(starting_url, ending_url):
     """
     Uses DFS to find any path between two artists
@@ -264,6 +265,7 @@ def depth_first(starting_url, ending_url):
     visited = set()
     path = []
     return dfs_recursive(starting_url, visited, path)
+
 def main():
     """
     Main function to run the BFS and DFS program.
