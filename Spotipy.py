@@ -19,7 +19,7 @@ sp = spotipy.Spotify(
     requests_timeout=10  # 10-second timeout for all requests
 )
 
-CSV_FILE = "adjacency_list original.csv"
+CSV_FILE = "adjacency_list.csv"
 
 
 def safe_request(func, *args, **kwargs):
@@ -196,17 +196,21 @@ def find_related_artists_in_memory(adjacency_list, artist_url):
         list: Related artist URLs.
     """
     # Check if the artist URL exists in the adjacency list
+    #print(f"Checking adjacency list for {artist_url}")
     if artist_url in adjacency_list:
+        #print(f"Found in memory: {adjacency_list[artist_url]}")
         return adjacency_list[artist_url]
 
     # If not found, fetch related artists from Spotify API
-    print(f"Artist {artist_url} not found in memory. Fetching from Spotify API...")
-    related_urls = find_related_artists(artist_url)  # This will also update the CSV and adjacency list
+    #print(f"Artist {artist_url} not found in memory. Fetching from Spotify API...")
+    #related_urls = find_related_artists(artist_url)  # This will also update the CSV and adjacency list
 
     # Update the adjacency list in memory
-    adjacency_list[artist_url] = related_urls
+    #adjacency_list[artist_url] = related_urls
 
-    return related_urls
+    # If not found in memory, return an empty list
+    print(f"Artist {artist_url} not found in memory.")
+    return []
 
 
 def breadth_first(starting_url, ending_url):
@@ -252,10 +256,13 @@ def breadth_first(starting_url, ending_url):
 
     # If no path is found, return None
     return None
- # nonlocal to avoid wipe in recursion. Keeps it in the scope of the beginnging function
+
+
+
 def depth_first(starting_url, ending_url):
     """
-    Uses DFS to find any path between two artists
+    Uses DFS to find any path between two artists.
+    Switched from recursive to iterative to avoid recursion limit in large graphs
 
     Args:
         starting_url (str): Spotify URL of the starting artist.
@@ -265,43 +272,37 @@ def depth_first(starting_url, ending_url):
         list: Path of artist URLs from start to end, or None if no connection.
     """
     url_counter = 0
-    def dfs_recursive(current_url, visited, path):
-        """
-        Inner recursive function for DFS
+    adjacency_list = read_adjacency_list()
 
-        Args:
-            current_url (str): Spotify URL of the current artist being visited.
-            visited (set): Set of visited artists URLs.
-            path (list): Path of artist URLs currently being explored.
-
-        Returns:
-            list: Path of artist URLs from start to end, or None if no connection.
-        """
-        nonlocal url_counter # nonlocal to avoid wipe in recursion. Keeps it in the scope of the beginnging function
-        url_counter += 1
-        visited.add(current_url)
-        path.append(current_url)
-        # if current audience is target audience, return path.
-        if current_url == ending_url:
-            return path
-        # get related artists
-        neighbors = find_related_artists(current_url)
-        for neighbor in neighbors:
-            if neighbor not in visited:
-                result = dfs_recursive(neighbor, visited, path)
-                if result:
-                    return result
-        # if no path found from current artist
-        path.pop()
-        return None
-    # initialize visited set and path list
+    # Initialize stack for iterative DFS
+    stack = [(starting_url, [starting_url])]  # Each element is (current_url, path)
     visited = set()
-    path = []
-    result = dfs_recursive(starting_url, visited, path)
-    if result:
-        return [len(result) - 1] + [str(url_counter)] + result
-    else:
-        return None
+
+    while stack:
+        current_url, path = stack.pop()
+        url_counter += 1
+
+        # If the current node is the target, return the path
+        if current_url == ending_url:
+            #print(f"Found connection between {get_artist_name(path[0])} and {get_artist_name(path[-1])}."f"Path: {path}")
+            return [len(path) - 1] + [str(url_counter)] + path
+
+        # Mark as visited
+        if current_url not in visited:
+            visited.add(current_url)
+
+            # Get neighbors (related artists)
+            neighbors = find_related_artists_in_memory(adjacency_list, current_url)
+            for neighbor in neighbors:
+                if neighbor not in visited:
+                    # Append neighbor and the updated path to the stack
+                    stack.append((neighbor, path + [neighbor]))
+
+    # If the loop completes without finding the ending URL, return None
+    print("No connection found between the artists in our database.")
+    return None
+
+
 """
 Console Testing 
 """
@@ -341,12 +342,17 @@ def main():
         number_artists_searched = result[1]
         path = result[2:]
         #Converts URLs to artist names for better readability
-        path_names = [get_artist_name(url) for url in path]
+        if choice == "1":
+            path_names = [get_artist_name(url) for url in path]
+
+        elif choice == "2":
+            # avoid api calling for long path of DFS
+            path_names = path
         print(f"\nSearched {number_artists_searched} Artists")
         print(f"\nDegrees of separation: {degrees}")
         print(" -> ".join(path_names))
     else:
-        print("No connection found between the artists.")
+        print("No connection found between the artists in our database.")
 
 if __name__ == "__main__":
     main()
