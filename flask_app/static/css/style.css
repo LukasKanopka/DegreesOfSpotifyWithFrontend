@@ -1,161 +1,41 @@
-/* Custom styles for Degrees of Spotify */
+/* Vaporware Theme for Degrees of Spotify */
 
 :root {
     --spotify-green: #1db954;
-    --spotify-black: #191414;
-    --spotify-dark-grey: #121212;
-    --spotify-grey: #282828;
-    --spotify-light-grey: #b3b3b3;
-    --spotify-white: #ffffff;
-    --spotify-hover: #1ed760;
-    --card-background: #181818;
-    --border-color: #404040;
+    --vaporware-white: #f9f9f9;
+    --vaporware-black: #000000;
+    --vaporware-shadow: 4px 4px 0px #000000;
+    --vaporware-shadow-small: 2px 2px 0px #000000;
+    --vaporware-shadow-large: 6px 6px 0px #000000;
 }
 
 body {
-    /* Simple 2-color gradient: black to dark grey */
-    background: linear-gradient(135deg, #000000 0%, #333333 100%);
+    background: var(--vaporware-white);
     min-height: 100vh;
     font-family: 'Circular', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    color: var(--spotify-white);
+    color: var(--vaporware-black);
     margin: 0;
     padding: 0;
     position: relative;
 }
 
-/* Organic frosted glass overlay with random noise */
-body::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background:
-        /* Organic noise clusters - irregular positioning */
-        radial-gradient(ellipse 1.3px 0.8px at 7.3% 18.7%, rgba(255, 255, 255, 0.022) 0%, transparent 70%),
-        radial-gradient(ellipse 0.9px 1.4px at 91.2% 43.1%, rgba(255, 255, 255, 0.016) 0%, transparent 70%),
-        radial-gradient(ellipse 1.1px 1.1px at 31.8% 76.4%, rgba(255, 255, 255, 0.019) 0%, transparent 70%),
-        radial-gradient(ellipse 0.7px 1.2px at 68.9% 9.3%, rgba(255, 255, 255, 0.013) 0%, transparent 70%),
-        radial-gradient(ellipse 1.5px 0.6px at 19.4% 59.7%, rgba(255, 255, 255, 0.024) 0%, transparent 70%),
-        radial-gradient(ellipse 0.8px 1.3px at 84.6% 87.2%, rgba(255, 255, 255, 0.011) 0%, transparent 70%),
-        radial-gradient(ellipse 1.2px 0.9px at 42.7% 31.5%, rgba(255, 255, 255, 0.021) 0%, transparent 70%),
-        radial-gradient(ellipse 0.6px 1.1px at 76.3% 64.8%, rgba(255, 255, 255, 0.015) 0%, transparent 70%),
-        radial-gradient(ellipse 1.4px 1.0px at 53.1% 2.9%, rgba(255, 255, 255, 0.018) 0%, transparent 70%),
-        radial-gradient(ellipse 0.9px 0.7px at 14.7% 91.6%, rgba(255, 255, 255, 0.012) 0%, transparent 70%),
-        /* Base frosted layer */
-        linear-gradient(47deg, rgba(40, 40, 40, 0.15) 0%, rgba(20, 20, 20, 0.05) 50%, rgba(40, 40, 40, 0.15) 100%),
-        rgba(25, 25, 25, 0.1);
-    background-size:
-        7.3px 5.8px, 8.9px 6.2px, 5.4px 7.1px, 6.7px 4.9px,
-        9.1px 5.3px, 7.8px 6.6px, 6.2px 8.4px, 5.9px 7.7px,
-        8.5px 6.8px, 7.1px 5.5px, 100% 100%, 100% 100%;
-    backdrop-filter: blur(8px) contrast(115%) brightness(105%);
-    -webkit-backdrop-filter: blur(8px) contrast(115%) brightness(105%);
-    pointer-events: none;
-    z-index: -1;
-    border: 1px solid rgba(80, 80, 80, 0.2);
-}
-
-/* Organic micro-texture layer */
+/* Remove all background overlays and textures */
+body::before,
 body::after {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background:
-        /* Scattered micro particles - completely random */
-        radial-gradient(ellipse 0.4px 0.6px at 13.2% 82.7%, rgba(200, 200, 200, 0.009) 0%, transparent 80%),
-        radial-gradient(ellipse 0.7px 0.3px at 71.8% 24.9%, rgba(200, 200, 200, 0.013) 0%, transparent 80%),
-        radial-gradient(ellipse 0.5px 0.8px at 38.4% 67.1%, rgba(200, 200, 200, 0.007) 0%, transparent 80%),
-        radial-gradient(ellipse 0.3px 0.5px at 89.7% 11.3%, rgba(200, 200, 200, 0.011) 0%, transparent 80%),
-        radial-gradient(ellipse 0.6px 0.4px at 26.9% 45.8%, rgba(200, 200, 200, 0.014) 0%, transparent 80%),
-        radial-gradient(ellipse 0.8px 0.7px at 62.3% 88.4%, rgba(200, 200, 200, 0.008) 0%, transparent 80%),
-        radial-gradient(ellipse 0.4px 0.9px at 47.6% 6.2%, rgba(200, 200, 200, 0.010) 0%, transparent 80%),
-        radial-gradient(ellipse 0.5px 0.3px at 83.1% 73.5%, rgba(200, 200, 200, 0.012) 0%, transparent 80%),
-        radial-gradient(ellipse 0.7px 0.6px at 9.8% 39.7%, rgba(200, 200, 200, 0.006) 0%, transparent 80%),
-        radial-gradient(ellipse 0.3px 0.7px at 94.4% 56.1%, rgba(200, 200, 200, 0.015) 0%, transparent 80%),
-        radial-gradient(ellipse 0.6px 0.5px at 55.7% 92.8%, rgba(200, 200, 200, 0.009) 0%, transparent 80%),
-        radial-gradient(ellipse 0.4px 0.8px at 21.5% 14.6%, rgba(200, 200, 200, 0.011) 0%, transparent 80%),
-        /* Subtle organic directional texture */
-        linear-gradient(134deg, rgba(40, 40, 40, 0.08) 0%, rgba(20, 20, 20, 0.04) 100%);
-    background-size:
-        3.7px 4.2px, 4.8px 3.1px, 3.3px 5.6px, 2.9px 3.8px,
-        4.1px 3.4px, 5.2px 4.7px, 3.6px 4.9px, 4.3px 3.2px,
-        3.9px 5.1px, 4.6px 3.7px, 3.4px 4.4px, 5.3px 3.9px,
-        100% 100%;
-    pointer-events: none;
-    z-index: -1;
-    opacity: 0.6;
-    mix-blend-mode: overlay;
+    display: none;
 }
 
-/* Cursor-following radial gradient - Background layer only */
+/* Remove cursor gradient */
 .cursor-gradient {
-    position: fixed;
-    width: 2000px;
-    height: 2000px;
-    border-radius: 50%;
-    background: radial-gradient(
-        circle,
-        rgba(255, 255, 255, 0.03) 0%,
-        rgba(255, 255, 255, 0.015) 30%,
-        rgba(255, 255, 255, 0.008) 50%,
-        rgba(255, 255, 255, 0.004) 70%,
-        transparent 100%
-    );
-    pointer-events: none;
-    z-index: -10;
-    transform: translate(-50%, -50%);
-    transition: opacity 0.5s ease, transform 0.1s ease-out;
-    opacity: 0;
-    mix-blend-mode: normal;
-    filter: blur(2px);
+    display: none;
 }
-
-.cursor-gradient.active {
-    opacity: 1;
-}
-
-/* Ensure all content stays above the cursor gradient */
-.container-fluid,
-header,
-main,
-section,
-.form-control,
-.btn,
-.alert,
-.path-container,
-.progress-section {
-    position: relative;
-    z-index: 1;
-}
-
-/* Additional subtle glow effect
-.cursor-gradient::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 200px;
-    height: 200px;
-    background: radial-gradient(
-        circle,
-        rgba(255, 255, 255, 0.06) 0%,
-        rgba(255, 255, 255, 0.02) 50%,
-        transparent 100%
-    );
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    mix-blend-mode: overlay;
-} */
 
 .container-fluid {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 24px;
+    position: relative;
+    z-index: 1;
 }
 
 /* Header Styles */
@@ -167,20 +47,20 @@ header {
 header h1 {
     font-weight: 900;
     font-size: 3.5rem;
-    color: var(--spotify-white);
+    color: var(--vaporware-black);
     margin-bottom: 16px;
     letter-spacing: -0.04em;
 }
 
 header .lead {
-    color: var(--spotify-light-grey);
+    color: var(--vaporware-black);
     font-size: 1.2rem;
     font-weight: 400;
 }
 
 /* Search Title Styles */
 .search-title {
-    color: var(--spotify-white);
+    color: var(--vaporware-black);
     font-size: 2.1rem;
     font-weight: 700;
     margin-bottom: 33.6px;
@@ -196,7 +76,7 @@ header .lead {
 
 /* Section Styles */
 .section-title {
-    color: var(--spotify-white);
+    color: var(--vaporware-black);
     font-size: 2.1rem;
     font-weight: 700;
     margin-bottom: 33.6px;
@@ -211,55 +91,65 @@ header .lead {
 
 /* Form Styles */
 .form-label {
-    color: var(--spotify-white);
+    color: var(--vaporware-black);
     font-weight: 600;
     margin-bottom: 11.2px;
     font-size: 1.26rem;
 }
 
 .form-control, .form-select {
-    background-color: var(--spotify-black);
-    border: 1.4px solid var(--border-color);
-    border-radius: 11.2px;
-    color: var(--spotify-white);
+    background-color: var(--vaporware-white);
+    border: 2px solid var(--vaporware-black);
+    border-radius: 0;
+    color: var(--vaporware-black);
     padding: 16.8px 22.4px;
     font-size: 1.4rem;
     transition: all 0.2s ease;
     height: auto;
+    box-shadow: var(--vaporware-shadow-large);
 }
 
 .form-control:focus, .form-select:focus {
-    background-color: var(--spotify-black);
+    background-color: var(--vaporware-white);
     border-color: var(--spotify-green);
-    box-shadow: none;
-    color: var(--spotify-white);
+    box-shadow: var(--vaporware-shadow);
+    color: var(--vaporware-black);
+    outline: none;
 }
 
 .form-control::placeholder {
-    color: var(--spotify-light-grey);
+    color: #666666;
     font-size: 1.4rem;
 }
 
+.input-group {
+    box-shadow: var(--vaporware-shadow-large);
+    border-radius: 0;
+    transition: all 0.2s ease;
+}
+
 .input-group-text {
-    background-color: var(--spotify-black);
-    border: 1.4px solid var(--border-color);
+    background-color: var(--vaporware-white);
+    border: 2px solid var(--vaporware-black);
     border-right: none;
-    border-radius: 11.2px 0 0 11.2px;
-    color: var(--spotify-light-grey);
+    border-radius: 0;
+    color: var(--vaporware-black);
     padding: 16.8px 22.4px;
     font-size: 1.4rem;
     transition: all 0.2s ease;
+    box-shadow: none;
 }
 
 .input-group .form-control {
     border-left: none;
-    border-radius: 0 11.2px 11.2px 0;
+    border-radius: 0;
+    box-shadow: none;
 }
 
 /* Input Group Focus Effect */
 .input-group:focus-within {
-    box-shadow: 0 0 0 2.8px rgba(29, 185, 84, 0.2);
-    border-radius: 11.2px;
+    box-shadow: var(--vaporware-shadow);
+    border-radius: 0;
 }
 
 .input-group:focus-within .input-group-text {
@@ -273,59 +163,76 @@ header .lead {
 /* Button Styles */
 .btn-primary {
     background-color: var(--spotify-green);
-    border: none;
-    border-radius: 70px;
+    border: 2px solid var(--vaporware-black);
+    border-radius: 0;
     font-weight: 700;
     font-size: 1.4rem;
     padding: 19.6px 44.8px;
-    color: var(--spotify-black);
+    color: var(--vaporware-black);
     transition: all 0.2s ease;
     text-transform: none;
     letter-spacing: 0.1em;
     height: auto;
+    box-shadow: var(--vaporware-shadow-large);
 }
 
 .btn-primary:hover {
-    background-color: var(--spotify-hover);
-    transform: scale(1.04);
-    color: var(--spotify-black);
+    background-color: var(--spotify-green);
+    transform: translate(2px, 2px);
+    box-shadow: var(--vaporware-shadow-small);
+    color: var(--vaporware-black);
+    border-color: var(--vaporware-black);
 }
 
 .btn-primary:focus {
-    background-color: var(--spotify-hover);
-    box-shadow: 0 0 0 4.2px rgba(29, 185, 84, 0.3);
-    color: var(--spotify-black);
+    background-color: var(--spotify-green);
+    box-shadow: var(--vaporware-shadow);
+    color: var(--vaporware-black);
+    border-color: var(--vaporware-black);
+}
+
+.btn-primary:active {
+    background-color: var(--spotify-green);
+    transform: translate(4px, 4px);
+    box-shadow: none;
+    color: var(--vaporware-black);
+    border-color: var(--vaporware-black);
 }
 
 .btn-primary:disabled {
-    background-color: var(--spotify-light-grey);
-    color: var(--spotify-grey);
+    background-color: #cccccc;
+    color: #666666;
     transform: none;
+    box-shadow: var(--vaporware-shadow);
+    border-color: var(--vaporware-black);
 }
 
 /* Progress Bar Styles */
 .progress-section {
-    background-color: transparent;
-    border-radius: 16.8px;
+    background-color: var(--vaporware-white);
+    border: 2px solid var(--vaporware-black);
+    border-radius: 0;
     padding: 44.8px;
     margin-top: 44.8px;
     margin-bottom: 44.8px;
-    border: none;
+    box-shadow: var(--vaporware-shadow-large);
 }
 
 .progress {
-    border-radius: 8px;
-    background-color: var(--spotify-black);
-    height: 16px;
+    border-radius: 0;
+    background-color: var(--vaporware-white);
+    border: 2px solid var(--vaporware-black);
+    height: 20px;
     width: 100%;
+    box-shadow: var(--vaporware-shadow-small);
 }
 
 .progress-bar {
     background-color: var(--spotify-green);
-    border-radius: 8px;
+    border-radius: 0;
     font-weight: 600;
     font-size: 0;
-    line-height: 16px;
+    line-height: 20px;
     text-align: center;
     color: transparent;
     min-width: 0;
@@ -334,6 +241,7 @@ header .lead {
     justify-content: center;
     background-image: none;
     animation: none;
+    border: none;
 }
 
 .progress-bar.progress-bar-striped {
@@ -345,7 +253,7 @@ header .lead {
 }
 
 .progress-message {
-    color: var(--spotify-light-grey);
+    color: var(--vaporware-black);
     margin-top: 22.4px;
     text-align: center;
     font-size: 1.26rem;
@@ -378,7 +286,7 @@ header .lead {
 
 /* Results Styles */
 .results-title {
-    color: var(--spotify-white);
+    color: var(--vaporware-black);
     font-size: 2.1rem;
     font-weight: 700;
     margin-bottom: 33.6px;
@@ -394,17 +302,18 @@ header .lead {
 }
 
 .path-container {
-    background-color: var(--spotify-black);
-    border-radius: 16.8px;
+    background-color: var(--vaporware-white);
+    border: 2px solid var(--vaporware-black);
+    border-radius: 0;
     padding: 33.6px;
     margin: 33.6px 0;
-    border: 1.4px solid var(--border-color);
+    box-shadow: var(--vaporware-shadow-large);
 }
 
 .path-container h6 {
     font-size: 1.8rem;
     font-weight: 700;
-    color: var(--spotify-white);
+    color: var(--vaporware-black);
 }
 
 .path-step {
@@ -412,23 +321,34 @@ header .lead {
     align-items: center;
     margin: 22.4px 0;
     padding: 22.4px;
-    background-color: var(--spotify-grey);
-    border-radius: 11.2px;
-    border: 1.4px solid var(--border-color);
+    background-color: var(--vaporware-white);
+    border: 2px solid var(--vaporware-black);
+    border-radius: 0;
     transition: all 0.2s ease;
+    box-shadow: var(--vaporware-shadow-large);
 }
 
 .path-step:hover {
-    background-color: var(--spotify-black);
+    background-color: var(--vaporware-white);
     border-color: var(--spotify-green);
+    transform: translate(2px, 2px);
+    box-shadow: var(--vaporware-shadow-small);
+}
+
+.path-step:active {
+    background-color: var(--vaporware-white);
+    border-color: var(--spotify-green);
+    transform: translate(4px, 4px);
+    box-shadow: none;
 }
 
 .step-number {
     background-color: var(--spotify-green);
-    color: var(--spotify-black);
+    color: var(--vaporware-black);
     width: 44.8px;
     height: 44.8px;
-    border-radius: 50%;
+    border: 2px solid var(--vaporware-black);
+    border-radius: 0;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -436,6 +356,7 @@ header .lead {
     font-size: 1.26rem;
     margin-right: 22.4px;
     flex-shrink: 0;
+    box-shadow: var(--vaporware-shadow-small);
 }
 
 .step-content {
@@ -446,7 +367,7 @@ header .lead {
 
 .artist-name {
     font-weight: 600;
-    color: var(--spotify-white);
+    color: var(--vaporware-black);
     margin: 0;
     font-size: 1.54rem;
     white-space: nowrap;
@@ -464,26 +385,37 @@ header .lead {
 
 /* Statistics Styles */
 .stats-section {
-    background-color: var(--spotify-grey);
-    border-radius: 24px;
+    background-color: var(--vaporware-white);
+    border: 2px solid var(--vaporware-black);
+    border-radius: 0;
     padding: 64px;
     margin-bottom: 64px;
-    border: 2px solid var(--border-color);
+    box-shadow: var(--vaporware-shadow-large);
 }
 
 .stat-item {
     padding: 48px;
-    border-radius: 16px;
-    background-color: var(--spotify-black);
+    border-radius: 0;
+    background-color: var(--vaporware-white);
+    border: 2px solid var(--vaporware-black);
     margin: 32px 0;
-    border: 2px solid var(--border-color);
     transition: all 0.2s ease;
     text-align: center;
+    box-shadow: var(--vaporware-shadow-large);
 }
 
 .stat-item:hover {
     border-color: var(--spotify-green);
-    background-color: var(--spotify-grey);
+    background-color: var(--vaporware-white);
+    transform: translate(2px, 2px);
+    box-shadow: var(--vaporware-shadow-small);
+}
+
+.stat-item:active {
+    border-color: var(--spotify-green);
+    background-color: var(--vaporware-white);
+    transform: translate(4px, 4px);
+    box-shadow: none;
 }
 
 .stat-item h3 {
@@ -494,7 +426,7 @@ header .lead {
 }
 
 .stat-item p {
-    color: var(--spotify-light-grey);
+    color: var(--vaporware-black);
     margin: 0;
     font-size: 1.8rem;
     font-weight: 500;
@@ -502,35 +434,36 @@ header .lead {
 
 /* Alert Styles */
 .alert {
-    border-radius: 16px;
-    border: 2px solid var(--border-color);
+    border-radius: 0;
+    border: 2px solid var(--vaporware-black);
     padding: 32px 40px;
     margin-bottom: 40px;
     font-size: 1.8rem;
+    box-shadow: var(--vaporware-shadow);
 }
 
 .alert-success {
-    background-color: rgba(29, 185, 84, 0.1);
+    background-color: var(--vaporware-white);
     border-color: var(--spotify-green);
-    color: var(--spotify-white);
+    color: var(--vaporware-black);
 }
 
 .alert-danger {
-    background-color: rgba(229, 57, 53, 0.1);
+    background-color: var(--vaporware-white);
     border-color: #e53935;
-    color: var(--spotify-white);
+    color: var(--vaporware-black);
 }
 
 .alert-info {
-    background-color: rgba(33, 150, 243, 0.1);
+    background-color: var(--vaporware-white);
     border-color: #2196f3;
-    color: var(--spotify-white);
+    color: var(--vaporware-black);
 }
 
 .alert-warning {
-    background-color: rgba(255, 193, 7, 0.1);
+    background-color: var(--vaporware-white);
     border-color: #ffc107;
-    color: var(--spotify-white);
+    color: var(--vaporware-black);
 }
 
 /* Loading Animation */
@@ -538,9 +471,9 @@ header .lead {
     display: inline-block;
     width: 20px;
     height: 20px;
-    border: 2px solid var(--spotify-grey);
+    border: 2px solid var(--vaporware-black);
     border-top: 2px solid var(--spotify-green);
-    border-radius: 50%;
+    border-radius: 0;
     animation: spin 1s linear infinite;
 }
 
@@ -549,16 +482,73 @@ header .lead {
     100% { transform: rotate(360deg); }
 }
 
+@keyframes keypress-sink {
+    0% { transform: translate(0, 0); box-shadow: var(--vaporware-shadow-large); }
+    50% { transform: translate(4px, 4px); box-shadow: none; }
+    100% { transform: translate(0, 0); box-shadow: var(--vaporware-shadow-large); }
+}
+
+@keyframes keypress-sink-input-group {
+    0% {
+        transform: translate(0, 0);
+        box-shadow: var(--vaporware-shadow-large);
+    }
+    25% {
+        transform: translate(2px, 2px);
+        box-shadow: var(--vaporware-shadow-small);
+    }
+    50% {
+        transform: translate(4px, 4px);
+        box-shadow: none;
+    }
+    75% {
+        transform: translate(2px, 2px);
+        box-shadow: var(--vaporware-shadow-small);
+    }
+    100% {
+        transform: translate(0, 0);
+        box-shadow: var(--vaporware-shadow-large);
+    }
+}
+
+@keyframes keypress-from-hover {
+    0% {
+        transform: translate(2px, 2px);
+        box-shadow: var(--vaporware-shadow-small);
+    }
+    50% {
+        transform: translate(4px, 4px);
+        box-shadow: none;
+    }
+    100% {
+        transform: translate(2px, 2px);
+        box-shadow: var(--vaporware-shadow-small);
+    }
+}
+
+/* Keypress animation classes */
+.form-control.keypress-animate {
+    animation: keypress-sink 0.2s ease-in-out;
+}
+
+.input-group.keypress-animate {
+    animation: keypress-sink-input-group 0.2s ease-in-out;
+}
+
+.input-group.keypress-from-hover {
+    animation: keypress-from-hover 0.15s ease-in-out;
+}
+
 /* Footer Styles */
 footer {
     text-align: center;
     padding: 40px 0;
-    border-top: 1px solid var(--border-color);
+    border-top: 2px solid var(--vaporware-black);
     margin-top: 60px;
 }
 
 footer p {
-    color: var(--spotify-light-grey);
+    color: var(--vaporware-black);
     margin: 0;
 }
 
@@ -569,7 +559,8 @@ footer a {
 }
 
 footer a:hover {
-    color: var(--spotify-hover);
+    color: var(--vaporware-black);
+    text-decoration: underline;
 }
 
 /* Responsive Design */
@@ -609,6 +600,21 @@ footer a:hover {
         width: 100%;
         margin-top: 16px;
     }
+    
+    /* Adjust shadows for mobile */
+    .form-control, .form-select {
+        box-shadow: var(--vaporware-shadow-small);
+    }
+    
+    .btn-primary {
+        box-shadow: var(--vaporware-shadow-small);
+    }
+    
+    .path-container,
+    .progress-section,
+    .stats-section {
+        box-shadow: var(--vaporware-shadow-small);
+    }
 }
 
 @media (max-width: 576px) {
@@ -623,6 +629,13 @@ footer a:hover {
     .stat-item h3 {
         font-size: 2rem;
     }
+    
+    /* Further reduce shadows for small screens */
+    :root {
+        --vaporware-shadow: 2px 2px 0px #000000;
+        --vaporware-shadow-small: 1px 1px 0px #000000;
+        --vaporware-shadow-large: 3px 3px 0px #000000;
+    }
 }
 
 /* Utility Classes */
@@ -630,23 +643,83 @@ footer a:hover {
     color: var(--spotify-green) !important;
 }
 
-.text-spotify-white {
-    color: var(--spotify-white) !important;
+.text-vaporware-white {
+    color: var(--vaporware-white) !important;
 }
 
-.text-spotify-grey {
-    color: var(--spotify-light-grey) !important;
+.text-vaporware-black {
+    color: var(--vaporware-black) !important;
 }
 
-.bg-spotify-black {
-    background-color: var(--spotify-black) !important;
+.bg-vaporware-white {
+    background-color: var(--vaporware-white) !important;
 }
 
-.bg-spotify-grey {
-    background-color: var(--spotify-grey) !important;
+.bg-vaporware-black {
+    background-color: var(--vaporware-black) !important;
 }
 
 /* Results Section Spacing */
 #resultsSection {
     margin-top: 44.8px;
+}
+
+/* Ensure all interactive elements maintain vaporware aesthetic */
+input[type="text"]:focus,
+select:focus,
+button:focus {
+    outline: none;
+}
+
+/* Additional squared shadow effects for enhanced vaporware feel */
+.form-control:hover,
+.form-select:hover {
+    transform: translate(2px, 2px);
+    box-shadow: var(--vaporware-shadow-small);
+}
+
+/* Active/click states for form controls */
+.form-control:active,
+.form-select:active {
+    transform: translate(4px, 4px);
+    box-shadow: none;
+}
+
+/* Remove individual hover effects for form controls within input groups */
+.input-group .form-control:hover {
+    transform: none;
+    box-shadow: none;
+}
+
+.input-group:hover {
+    transform: translate(2px, 2px);
+    box-shadow: var(--vaporware-shadow-small);
+}
+
+/* Active/click state for input groups */
+.input-group:active {
+    transform: translate(4px, 4px);
+    box-shadow: none;
+}
+
+/* Ensure input group text elements move with the container */
+.input-group:hover .input-group-text,
+.input-group:hover .form-control {
+    transform: none;
+}
+
+/* Ensure consistent squared aesthetic throughout */
+* {
+    border-radius: 0 !important;
+}
+
+/* Override any Bootstrap rounded corners */
+.rounded,
+.rounded-top,
+.rounded-end,
+.rounded-bottom,
+.rounded-start,
+.rounded-circle,
+.rounded-pill {
+    border-radius: 0 !important;
 }

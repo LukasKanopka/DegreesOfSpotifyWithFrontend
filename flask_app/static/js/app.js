@@ -26,6 +26,9 @@ class DegreesOfSpotify {
         this.setupArtistSuggestions('artist1', 'artist1Suggestions');
         this.setupArtistSuggestions('artist2', 'artist2Suggestions');
         
+        // Keypress animations for artist input boxes
+        this.setupKeypressAnimations();
+        
         // Clear suggestions when clicking outside
         document.addEventListener('click', (e) => {
             if (!e.target.closest('.input-group')) {
@@ -39,6 +42,49 @@ class DegreesOfSpotify {
         // Suggestions functionality disabled
         // This method is kept for compatibility but does nothing
         return;
+    }
+    
+    setupKeypressAnimations() {
+        // Add keypress animations to artist input fields
+        const artistInputs = ['artist1', 'artist2'];
+        
+        artistInputs.forEach(inputId => {
+            const input = document.getElementById(inputId);
+            const inputGroup = input.closest('.input-group');
+            
+            if (input && inputGroup) {
+                input.addEventListener('keydown', (e) => {
+                    // Only animate for actual character keys, not special keys
+                    if (e.key.length === 1 || e.key === 'Backspace' || e.key === 'Delete') {
+                        this.triggerKeypressAnimation(inputGroup);
+                    }
+                });
+            }
+        });
+    }
+    
+    triggerKeypressAnimation(inputGroup) {
+        const input = inputGroup.querySelector('.form-control');
+        const isInputFocused = document.activeElement === input;
+        const isHovered = inputGroup.matches(':hover');
+        
+        // Determine which animation to use based on state
+        const animationClass = (isInputFocused || isHovered) ? 'keypress-from-hover' : 'keypress-animate';
+        const duration = (isInputFocused || isHovered) ? 150 : 200;
+        
+        // Remove existing animation classes if present
+        inputGroup.classList.remove('keypress-animate', 'keypress-from-hover');
+        
+        // Force reflow to ensure the class removal takes effect
+        inputGroup.offsetHeight;
+        
+        // Add appropriate animation class
+        inputGroup.classList.add(animationClass);
+        
+        // Remove animation class after animation completes
+        setTimeout(() => {
+            inputGroup.classList.remove(animationClass);
+        }, duration);
     }
     
     async fetchArtistSuggestions(query, suggestionsDiv, input) {
