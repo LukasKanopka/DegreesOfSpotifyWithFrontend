@@ -12,6 +12,7 @@ class DegreesOfSpotify {
     init() {
         this.bindEvents();
         this.loadDatabaseStats();
+        this.initCursorGradient();
     }
     
     bindEvents() {
@@ -35,82 +36,24 @@ class DegreesOfSpotify {
     }
     
     setupArtistSuggestions(inputId, suggestionsId) {
-        const input = document.getElementById(inputId);
-        const suggestionsDiv = document.getElementById(suggestionsId);
-        
-        input.addEventListener('input', (e) => {
-            const query = e.target.value.trim();
-            
-            // Clear previous timeout
-            if (this.suggestionTimeouts[inputId]) {
-                clearTimeout(this.suggestionTimeouts[inputId]);
-            }
-            
-            if (query.length < 2) {
-                this.hideSuggestions(suggestionsId);
-                return;
-            }
-            
-            // Debounce the API call
-            this.suggestionTimeouts[inputId] = setTimeout(() => {
-                this.fetchArtistSuggestions(query, suggestionsDiv, input);
-            }, 300);
-        });
-        
-        input.addEventListener('focus', () => {
-            if (input.value.length >= 2) {
-                suggestionsDiv.style.display = 'block';
-            }
-        });
+        // Suggestions functionality disabled
+        // This method is kept for compatibility but does nothing
+        return;
     }
     
     async fetchArtistSuggestions(query, suggestionsDiv, input) {
-        try {
-            const response = await fetch(`/api/artists/search?q=${encodeURIComponent(query)}`);
-            const data = await response.json();
-            
-            if (data.artists && data.artists.length > 0) {
-                this.displaySuggestions(data.artists, suggestionsDiv, input);
-            } else {
-                this.hideSuggestions(suggestionsDiv.id);
-            }
-        } catch (error) {
-            console.error('Error fetching artist suggestions:', error);
-            this.hideSuggestions(suggestionsDiv.id);
-        }
+        // Suggestions functionality disabled
+        return;
     }
     
     displaySuggestions(artists, suggestionsDiv, input) {
-        suggestionsDiv.innerHTML = '';
-        
-        artists.forEach(artist => {
-            const item = document.createElement('div');
-            item.className = 'suggestion-item';
-            
-            item.innerHTML = `
-                ${artist.image ? `<img src="${artist.image}" alt="${artist.name}" class="suggestion-image">` : ''}
-                <div class="suggestion-info">
-                    <p class="suggestion-name">${artist.name}</p>
-                    <p class="suggestion-details">${artist.followers.toLocaleString()} followers</p>
-                </div>
-            `;
-            
-            item.addEventListener('click', () => {
-                input.value = artist.name;
-                this.hideSuggestions(suggestionsDiv.id);
-            });
-            
-            suggestionsDiv.appendChild(item);
-        });
-        
-        suggestionsDiv.style.display = 'block';
+        // Suggestions functionality disabled
+        return;
     }
     
     hideSuggestions(suggestionsId) {
-        const suggestionsDiv = document.getElementById(suggestionsId);
-        if (suggestionsDiv) {
-            suggestionsDiv.style.display = 'none';
-        }
+        // Suggestions functionality disabled
+        return;
     }
     
     async startSearch() {
@@ -275,12 +218,14 @@ class DegreesOfSpotify {
     }
     
     showProgress() {
-        document.getElementById('progressSection').style.display = 'block';
+        const progressSection = document.getElementById('progressSection');
+        progressSection.style.display = 'block';
         this.updateProgress(0, 'Initializing search...');
     }
     
     hideProgress() {
-        document.getElementById('progressSection').style.display = 'none';
+        const progressSection = document.getElementById('progressSection');
+        progressSection.style.display = 'none';
     }
     
     updateProgress(percentage, message) {
@@ -288,7 +233,7 @@ class DegreesOfSpotify {
         const progressMessage = document.getElementById('progressMessage');
         
         progressBar.style.width = `${percentage}%`;
-        progressBar.textContent = `${percentage}%`;
+        progressBar.textContent = '';
         progressMessage.textContent = message;
         
         if (percentage >= 100) {
@@ -297,7 +242,8 @@ class DegreesOfSpotify {
     }
     
     hideResults() {
-        document.getElementById('resultsSection').style.display = 'none';
+        const resultsSection = document.getElementById('resultsSection');
+        resultsSection.style.display = 'none';
     }
     
     disableSearchForm(disabled) {
@@ -315,15 +261,8 @@ class DegreesOfSpotify {
     }
     
     async loadDatabaseStats() {
-        try {
-            // For now, we'll use placeholder stats since we don't have a stats endpoint yet
-            // This can be implemented later when the backend is fully set up
-            document.getElementById('totalArtists').textContent = '-';
-            document.getElementById('totalConnections').textContent = '-';
-            document.getElementById('avgConnections').textContent = '-';
-        } catch (error) {
-            console.error('Error loading database stats:', error);
-        }
+        // Database stats section has been removed from the UI
+        // This method is kept for compatibility but does nothing
     }
     
     showAlert(message, type = 'info') {
@@ -348,6 +287,79 @@ class DegreesOfSpotify {
                 alert.remove();
             }
         }, 5000);
+    }
+    
+    initCursorGradient() {
+        // Create the cursor gradient element
+        const cursorGradient = document.createElement('div');
+        cursorGradient.className = 'cursor-gradient';
+        document.body.appendChild(cursorGradient);
+        
+        let mouseX = 0;
+        let mouseY = 0;
+        let currentX = 0;
+        let currentY = 0;
+        let isMouseMoving = false;
+        let fadeTimeout;
+        let animationId;
+        
+        // Smooth animation function
+        const animate = () => {
+            // Lerp (linear interpolation) for smooth movement
+            const ease = 0.15;
+            currentX += (mouseX - currentX) * ease;
+            currentY += (mouseY - currentY) * ease;
+            
+            // Update gradient position
+            cursorGradient.style.left = currentX + 'px';
+            cursorGradient.style.top = currentY + 'px';
+            
+            animationId = requestAnimationFrame(animate);
+        };
+        
+        // Start animation loop
+        animate();
+        
+        // Track mouse movement
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            
+            // Show gradient when mouse moves
+            if (!isMouseMoving) {
+                isMouseMoving = true;
+                cursorGradient.classList.add('active');
+            }
+            
+            // Clear existing timeout
+            clearTimeout(fadeTimeout);
+            
+            // Set timeout to fade out gradient when mouse stops moving
+            fadeTimeout = setTimeout(() => {
+                isMouseMoving = false;
+                cursorGradient.classList.remove('active');
+            }, 3000); // Fade out after 3 seconds of no movement
+        });
+        
+        // Hide gradient when mouse leaves the window
+        document.addEventListener('mouseleave', () => {
+            cursorGradient.classList.remove('active');
+            isMouseMoving = false;
+            clearTimeout(fadeTimeout);
+        });
+        
+        // Show gradient when mouse enters the window
+        document.addEventListener('mouseenter', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            cursorGradient.classList.add('active');
+            isMouseMoving = true;
+        });
+        
+        // Cleanup function
+        window.addEventListener('beforeunload', () => {
+            cancelAnimationFrame(animationId);
+        });
     }
 }
 

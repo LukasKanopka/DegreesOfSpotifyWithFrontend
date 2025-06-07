@@ -29,9 +29,10 @@ def main():
         print(f"Debug mode: {Config.DEBUG}")
         print(f"CSV file: {Config.CSV_FILE}")
         print("="*50)
+        port = int(os.environ.get('PORT', 5001))
         print("\n🌐 Application will be available at:")
-        print("   http://localhost:5000")
-        print("   http://127.0.0.1:5000")
+        print(f"   http://localhost:{port}")
+        print(f"   http://127.0.0.1:{port}")
         print("\n📱 API endpoints:")
         print("   POST /api/search - Start artist search")
         print("   GET  /api/search/<id>/status - Get search status")
@@ -41,10 +42,11 @@ def main():
         print("="*50 + "\n")
         
         # Run the Flask application
+        port = int(os.environ.get('PORT', 5001))
         app.run(
             debug=Config.DEBUG,
             host='0.0.0.0',
-            port=5000,
+            port=port,
             threaded=True
         )
         
