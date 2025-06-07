@@ -9,14 +9,14 @@
     <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
 </head>
 <body>
-    <div class="container-fluid">
-        <header>
-            <h1>
-                <i class="fas fa-music"></i> Degrees of Spotify.
-            </h1>
-            <p class="lead">Find the degrees of connection between any two artists</p>
-        </header>
+    <header>
+        <h1>
+            <img src="{{ url_for('static', filename='images/SpotifyLogo.png') }}" alt="Spotify Logo" style="height: 1.5em; vertical-align: middle;"> Degrees of Spotify.
+        </h1>
+        <p class="header-tagline">Find the degrees of connection between any two artists.</p>
+    </header>
 
+    <div class="container-fluid">
         <main class="row justify-content-center">
             <div class="col-lg-8 col-md-10">
                 <!-- Search Form -->

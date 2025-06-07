@@ -1,5 +1,15 @@
 /* Vaporware Theme for Degrees of Spotify */
 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+}
+
 :root {
     --spotify-green: #1db954;
     --vaporware-white: #f9f9f9;
@@ -14,8 +24,8 @@ body {
     min-height: 100vh;
     font-family: 'Circular', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     color: var(--vaporware-black);
-    margin: 0;
-    padding: 0;
+    margin: 0; /* Ensure body margin is zero */
+    padding: 0; /* Ensure body padding is zero */
     position: relative;
 }
 
@@ -40,30 +50,59 @@ body::after {
 
 /* Header Styles */
 header {
-    padding: 40px 0 60px 0;
-    text-align: center;
+    width: 100vw !important; /* Use viewport width and force override */
+    background-color: #000; /* Changed to black */
+    padding: 15px 0; /* Reduced padding for smaller header */
+    margin: 0;
+    position: fixed; /* Break out of document flow */
+    top: 0;
+    left: 0;
+    text-align: left; /* Left align like Spotify dev page */
+    z-index: 1000; /* Ensure it's above other content */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 24px;
+    padding-right: 24px;
 }
 
 header h1 {
-    font-weight: 900;
-    font-size: 3.5rem;
-    color: var(--vaporware-black);
-    margin-bottom: 16px;
-    letter-spacing: -0.04em;
+    font-weight: 700;
+    font-size: 1.5rem; /* Much smaller like Spotify dev page */
+    color: var(--vaporware-white); /* Changed to white for contrast */
+    margin: 0; /* Remove margin for compact header */
+    letter-spacing: -0.02em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
-header .lead {
-    color: var(--vaporware-black);
-    font-size: 1.2rem;
-    font-weight: 400;
+header h1 i {
+    font-size: 1.2rem; /* Smaller icon */
+}
+
+/* Header Tagline Styles */
+.header-tagline {
+    color: var(--vaporware-white) !important; /* Force white color */
+    font-size: 1.1rem;
+    font-weight: 600; /* Thicker font */
+    margin: 0;
+    display: flex;
+    align-items: center;
+}
+
+/* Main Content Styles */
+main {
+    padding-top: 80px; /* Add space below fixed header */
 }
 
 /* Search Title Styles */
 .search-title {
     color: var(--vaporware-black);
-    font-size: 2.1rem;
+    font-size: 3rem;
     font-weight: 700;
     margin-bottom: 33.6px;
+    padding-top: 40px; /* Added padding to create space below the header */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -446,6 +485,10 @@ header .lead {
     background-color: var(--vaporware-white);
     border-color: var(--spotify-green);
     color: var(--vaporware-black);
+}
+
+.alert-success h5 {
+    font-size: 2.0rem; /* Adjust this value to your desired text size */
 }
 
 .alert-danger {
