@@ -1,6 +1,12 @@
 # DegreesOfSpotify
 Welcome to Degrees of Spotify
 
+DEMO : https://youtu.be/vxD-BGRteOQ
+
+![Main Page Screenshot](MainPage.png)
+
+![After Search Screenshot](AfterSearch.png)
+
 Created By: Laurynas Kanopka, Jordan Price, Ale De-La-O
 Frontend By: Laurynas Kanopka
 
@@ -11,9 +17,6 @@ Because of the nature of DFS, to find the shortest path, it would need to explor
 
 How to run the code:
 
-![Main Page Screenshot](MainPage.png)
-
-![After Search Screenshot](AfterSearch.png)
 1. Run the SpotipyGUI.py program, which will open up the GUI
 2. Type the artist you want to start with in the box next to "Artist 1" and click the "Confirm" button
 3. Type the artist you want to end with in the box next to "Artist 2" and click the "Confirm" button
