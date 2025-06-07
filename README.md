@@ -10,6 +10,10 @@ BFS will return the shortest path
 Because of the nature of DFS, to find the shortest path, it would need to explore every route to find the shortest one, and with the size of the Spotify Database, that's not really possible in our scope
 
 How to run the code:
+
+![Main Page Screenshot](MainPage.png)
+
+![After Search Screenshot](AfterSearch.png)
 1. Run the SpotipyGUI.py program, which will open up the GUI
 2. Type the artist you want to start with in the box next to "Artist 1" and click the "Confirm" button
 3. Type the artist you want to end with in the box next to "Artist 2" and click the "Confirm" button
