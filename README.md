@@ -2,6 +2,7 @@
 Welcome to Degrees of Spotify
 
 Created By: Laurynas Kanopka, Jordan Price, Ale De-La-O
+Frontend By: Laurynas Kanopka
 
 This project takes in two artists as inputs, and by either using depth first search or breadth first search, it will return a path between the two artists through artists that they have have features in common with.
 
