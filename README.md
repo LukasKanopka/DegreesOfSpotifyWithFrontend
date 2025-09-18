@@ -1,8 +1,6 @@
 # DegreesOfSpotify
 Welcome to Degrees of Spotify
 
-DEMO : https://youtu.be/vxD-BGRteOQ
-
 ![Main Page Screenshot](MainPage.png)
 
 ![After Search Screenshot](AfterSearch.png)
